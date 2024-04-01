@@ -165,3 +165,10 @@ async function updateEpisode(id, episode) {
 
 	return performDBOperation("episodes", "readwrite", "put", fullEpisode);
 }
+
+/********************************
+ * CRUD Operations for Questions *
+ ********************************/
+
+
+
