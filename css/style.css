@@ -1,84 +1,94 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap");
 
 * {
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 body {
-	font-family: "Space Grotesk", "Courier New", Courier, monospace;
-	font-size: 62.5%;
-	color: #fff;
+    font-family: "Space Grotesk", "Courier New", Courier, monospace;
+    font-size: 62.5%;
+    color: #fff;
 }
 
 .background {
-	position: fixed;
-	overflow: hidden;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 1;
+    position: fixed;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
 }
 
 .container {
-	position: relative;
-	width: 100%;
-	min-height: 100vh;
-	overflow: auto;
-	z-index: 2;
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow: auto;
+    z-index: 2;
 }
 
 header,
 main,
 nav {
-	width: 80%;
-	max-width: 720px;
-	margin: 0 auto;
+    width: 80%;
+    max-width: 720px;
+    margin: 0 auto;
 }
 
 header {
-	display: flex;
-	height: auto;
-	justify-content: center;
+    display: flex;
+    height: auto;
+    justify-content: center;
 }
 
 #futurama-logo {
-	height: auto;
-	width: 40%;
-	padding: 2vw;
+    height: auto;
+    width: 40%;
+    padding: 2vw;
 }
 
 nav {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 1em;
-	flex-wrap: wrap;
-	gap: 1.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    flex-wrap: wrap;
+    gap: 1.5em;
+}
+
+.start-quiz-button,
+.add-character-button,
+.add-episode-button {
+    display: none;
 }
 
 button {
-	cursor: pointer;
-	font-weight: bold;
+    cursor: pointer;
+    font-weight: bold;
 }
 
+.start-quiz-button,
+.questions-button,
 .characters-button,
 .episodes-button,
 .add-character-button,
 .add-episode-button {
-	background: linear-gradient(180deg, #8c1015, #e2161b);
-	border-color: #f1fe91;
-	border-radius: 5px;
-	border-width: 3px;
-	padding: 1vw;
-	color: #fff;
-	text-shadow: 1px 1px 2px black;
-	margin: 0 1em;
-	width: 15em;
+    background: linear-gradient(180deg, #8c1015, #e2161b);
+    border-color: #f1fe91;
+    border-radius: 5px;
+    border-width: 3px;
+    padding: 1vw;
+    color: #fff;
+    text-shadow: 1px 1px 2px black;
+    margin: 0 1em;
+    width: 15em;
 }
 
+.questions-button:hover,
+.questions-button:focus,
 .characters-button:hover,
 .characters-button:focus,
 .episodes-button:hover,
@@ -87,175 +97,175 @@ button {
 .add-character-button:focus,
 .add-episode-button:hover,
 .add-episode-button:focus {
-	transform: scale(1.05);
-	cursor: pointer;
-	transition: transform 0.3s ease-in-out;
+    transform: scale(1.05);
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
 }
 
 main {
-	display: flex;
-	justify-content: center;
-	padding: 5em 0;
+    display: flex;
+    justify-content: center;
+    padding: 5em 0;
 }
 
 .main-container {
-	position: relative;
-	background: rgba(255, 255, 255, 0.1);
-	border-radius: 2em;
-	padding: 3em;
-	width: 80%;
-	max-width: 720px;
-	box-shadow: 0 5px 25px 0 rgba(31, 38, 135, 0.37);
-	overflow: auto;
+    position: relative;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2em;
+    padding: 3em;
+    width: 80%;
+    max-width: 720px;
+    box-shadow: 0 5px 25px 0 rgba(31, 38, 135, 0.37);
+    overflow: auto;
 }
 
 .characters-container > h2 {
-	font-size: 3em;
-	text-align: center;
-	text-decoration: underline;
-	text-decoration-color: #f1fe91;
+    font-size: 3em;
+    text-align: center;
+    text-decoration: underline;
+    text-decoration-color: #f1fe91;
 }
 
 .card {
-	background: rgba(0, 0, 0, 0.3);
-	padding: 1em;
-	margin: 1em;
-	border: 1px solid #f1fe91;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1em;
+    margin: 1em;
+    border: 1px solid #f1fe91;
 }
 
 .card > h3 {
-	font-size: 1.6em;
-	text-decoration: underline;
-	text-decoration-color: #f1fe91;
-	margin-bottom: 0.5em;
+    font-size: 1.6em;
+    text-decoration: underline;
+    text-decoration-color: #f1fe91;
+    margin-bottom: 0.5em;
 }
 
 .card > p {
-	font-size: 1.4em;
+    font-size: 1.4em;
 }
 
 .characters-container {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .modal {
-	display: none;
-	position: fixed;
-	z-index: 2;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-	background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-content {
-	display: flex;
-	flex-direction: column;
-	align-items: start;
-	background: linear-gradient(180deg, #8c1015, #e2161b);
-	color: black;
-	margin: 25% auto;
-	padding: 20px;
-	border: 5px solid #f1fe91;
-	border-radius: 5px;
-	width: 80%;
-	max-width: 300px;
-	backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    background: linear-gradient(180deg, #8c1015, #e2161b);
+    color: black;
+    margin: 25% auto;
+    padding: 20px;
+    border: 5px solid #f1fe91;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 300px;
+    backdrop-filter: blur(5px);
 }
 
 .modal-top-bar {
-	display: flex;
-	justify-content: space-between;
-	width: 100%;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .edit-delete {
-	cursor: pointer;
-	display: flex;
+    cursor: pointer;
+    display: flex;
 }
 
 .edit-delete > span {
-	margin-right: 1.5em;
+    margin-right: 1.5em;
 }
 
 .modal-content-card {
-	display: flex;
-	flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .modal-content-card > h3 {
-	margin: 0.6em 0;
-	font-size: 1.6em;
-	font-weight: bold;
-	text-decoration: underline;
-	text-decoration-color: #f1fe91;
+    margin: 0.6em 0;
+    font-size: 1.6em;
+    font-weight: bold;
+    text-decoration: underline;
+    text-decoration-color: #f1fe91;
 }
 
 .modal-content-card > p {
-	font-size: 1.3em;
+    font-size: 1.3em;
 }
 
 .modal-content-card > img {
-	max-height: 30em;
-	max-width: auto;
-	width: auto;
-	padding: 2em 0;
-	margin: auto;
+    max-height: 30em;
+    max-width: auto;
+    width: auto;
+    padding: 2em 0;
+    margin: auto;
 }
 
 .close > img,
 .edit-delete > span > img {
-	opacity: 0.5;
+    opacity: 0.5;
 }
 
 .close > img:hover,
 .close > img:focus,
 .edit-delete > span > img:hover,
 .edit-delete > span > img:focus {
-	opacity: 1;
-	transform: scale(1.2);
-	cursor: pointer;
-	transition: transform 0.3s ease-in-out;
+    opacity: 1;
+    transform: scale(1.2);
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
 }
 
 .modal-content-card > ul {
-	font-size: 1.3em;
+    font-size: 1.3em;
 }
 
 .label-input-form {
-	display: flex;
-	justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 
 .label-input-form label {
-	font-size: 1.3em;
-	margin-right: 1em;
-	margin-bottom: 1em;
+    font-size: 1.3em;
+    margin-right: 1em;
+    margin-bottom: 1em;
 }
 
 .label-input-form input {
-	margin-left: auto;
-	margin-bottom: 1em;
+    margin-left: auto;
+    margin-bottom: 1em;
 }
 
 .submitButton {
-	background: linear-gradient(180deg, #8c1015, #e2161b);
-	border-color: #f1fe91;
-	border-radius: 5px;
-	border-width: 3px;
-	padding: 0.5em;
-	color: #fff;
-	text-shadow: 1px 1px 2px black;
-	margin: 0 auto;
-	width: 15em;
-	display: block;
+    background: linear-gradient(180deg, #8c1015, #e2161b);
+    border-color: #f1fe91;
+    border-radius: 5px;
+    border-width: 3px;
+    padding: 0.5em;
+    color: #fff;
+    text-shadow: 1px 1px 2px black;
+    margin: 0 auto;
+    width: 15em;
+    display: block;
 }
 
 .submitButton:hover,
 .submitButton:focus {
-	transform: scale(1.05);
-	cursor: pointer;
-	transition: transform 0.3s ease-in-out;
+    transform: scale(1.05);
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
 }

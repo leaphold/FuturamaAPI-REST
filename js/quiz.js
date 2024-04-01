@@ -16,52 +16,60 @@
 
 // Manage statistics (initialize, update, get)
 function manageStatistics() {
-	// If there is no statistics saved in localStorage
-	if (!localStorage.getItem("statistics")) {
-		const initialStatistics = {
-			questionsAnswered: 0,
-			correctAnswers: 0,
-			incorrectAnswers: 0,
-		};
-		localStorage.setItem("statistics", JSON.stringify(initialStatistics));
-	}
+    // If there is no statistics saved in localStorage
+    if (!localStorage.getItem("statistics")) {
+        const initialStatistics = {
+            questionsAnswered: 0,
+            correctAnswers: 0,
+            incorrectAnswers: 0,
+        };
+        localStorage.setItem("statistics", JSON.stringify(initialStatistics));
+    }
 
-	// Update the statistics in localStorage
-	this.updateStatistics = function (correct) {
-		const statistics = JSON.parse(localStorage.getItem("statistics"));
-		statistics.questionsAnswered += 1;
-		if (correct) {
-			statistics.correctAnswers += 1;
-		} else {
-			statistics.incorrectAnswers += 1;
-		}
-		localStorage.setItem("statistics", JSON.stringify(statistics));
-	};
+    // Update the statistics in localStorage
+    this.updateStatistics = function (correct) {
+        const statistics = JSON.parse(localStorage.getItem("statistics"));
+        statistics.questionsAnswered += 1;
+        if (correct) {
+            statistics.correctAnswers += 1;
+        } else {
+            statistics.incorrectAnswers += 1;
+        }
+        localStorage.setItem("statistics", JSON.stringify(statistics));
+    };
 
-	// Get current sstatistics
-	this.getStatistics = function () {
-		return JSON.parse(localStorage.getItem("statistics"));
-	};
+    // Get current sstatistics
+    this.getStatistics = function () {
+        return JSON.parse(localStorage.getItem("statistics"));
+    };
 
-	// TODO: Maybe add a reset function for statistics
+    // TODO: Maybe add a reset function for statistics
 }
 
 // Run an instancs of manageStatistics
 const statisticsManager = new manageStatistics();
 
 function printStatistics() {
-	// Clear the main container
-	mainContainer.innerHTML = "";
+    // Clear the main container
+    mainContainer.innerHTML = "";
 
-	// Create a new statistics container
-	const statisticsContainer = document.createElement("div");
-	statisticsContainer.className = "statistics-container";
-	statisticsContainer.innerHTML = "<h2>statistics</h2>";
-	mainContainer.appendChild(statisticsContainer);
+    document.querySelector(".add-episode-button").style.display = "none";
+    document.querySelector(".add-character-button").style.display = "none";
+    document.querySelector(".start-quiz-button").style.display = "block";
 
-	let statistics = statisticsManager.getStatistics();
+    // Create a new statistics container
+    const statisticsContainer = document.createElement("div");
+    statisticsContainer.className = "statistics-container";
+    statisticsContainer.innerHTML = "<h2>statistics</h2>";
+    mainContainer.appendChild(statisticsContainer);
 
-	console.log(statistics);
+    let statistics = statisticsManager.getStatistics();
+
+    statisticsContainer.innerHTML += `
+        <p>Antal besvarade frågor: ${statistics.questionsAnswered}</p>
+        <p>Antal rätta svar: ${statistics.correctAnswers}</p>
+        <p>Antal felaktiga svar: ${statistics.incorrectAnswers}</p>
+    `;
 }
 
 // ---------- QUIZ MODAL PAGE ---------- //
