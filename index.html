@@ -1,63 +1,61 @@
 <!DOCTYPE html>html
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="./css/style.css" />
-        <link rel="stylesheet" href="./css/stars.css" />
-        <title>Futurama</title>
-    </head>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./css/style.css" />
+		<link rel="stylesheet" href="./css/stars.css" />
+		<title>Futurama</title>
+	</head>
 
-    <body>
-        <div class="background">
-            <div id="stars"></div>
-            <div id="stars2"></div>
-            <div id="stars3"></div>
-        </div>
+	<body>
+		<div class="background">
+			<div id="stars"></div>
+			<div id="stars2"></div>
+			<div id="stars3"></div>
+		</div>
 
-        <div class="container">
-            <header>
-                <img id="futurama-logo" src="./images/futurama_logo.webp" alt="Futurama logo" />
-            </header>
+		<div class="container">
+			<header>
+				<img id="futurama-logo" src="./images/futurama_logo.webp" alt="Futurama logo" />
+			</header>
 
-            <nav id="nav-bar">
-                <button class="characters-button" type="button">Characters</button>
-                <button class="episodes-button" type="button">Episodes</button>
-                <button class="questions-button" type="button">Quiz</button>
-                <button class="add-character-button" id="openFormButton" type="button">
-                    Add Character
-                </button>
-                <button class="add-episode-button" type="button">Add Episode</button>
-                <button class="start-quiz-button" type="button">Sart Quiz</button>
-            </nav>
+			<nav id="nav-bar">
+				<button class="characters-button" type="button">Characters</button>
+				<button class="episodes-button" type="button">Episodes</button>
+				<button class="questions-button" type="button">Quiz</button>
+				<button class="add-character-button" id="openFormButton" type="button">Add Character</button>
+				<button class="add-episode-button" type="button">Add Episode</button>
+				<button class="start-quiz-button" type="button">Start Quiz</button>
+			</nav>
 
-            <main>
-                <div class="main-container"></div>
-            </main>
-            <div id="modal" class="modal">
-                <div class="modal-content">
-                    <div class="modal-top-bar">
-                        <div class="edit-delete">
-                            <span class="edit"
-                                ><img src="./images/edit-pencil.svg" alt="edit pencil"
-                            /></span>
-                            <span class="delete"
-                                ><img src="./images/trash.svg" alt="delete"
-                            /></span>
-                        </div>
-                        <div class="modal-close">
-                            <span class="close"><img src="./images/xmark.svg" alt="close" /></span>
-                        </div>
-                    </div>
-                    <div class="modal-content-card"></div>
-                </div>
-            </div>
-        </div>
+			<main>
+				<div class="main-container"></div>
+			</main>
 
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        <script src="./js/api-client.js"></script>
-        <script src="./js/crud-operations.js"></script>
-        <script src="./js/app.js"></script>
-        <script src="./js/quiz.js"></script>
-    </body>
+			<!-- MODAL -->
+			<div id="modal" class="modal">
+				<div class="modal-content">
+					<div class="modal-top-bar">
+						<div class="edit-delete">
+							<span class="edit"><img src="./images/edit-pencil.svg" alt="edit pencil" /></span>
+							<span class="delete"><img src="./images/trash.svg" alt="delete" /></span>
+						</div>
+						<div class="modal-close">
+							<span class="close"><img src="./images/xmark.svg" alt="close" /></span>
+						</div>
+					</div>
+					<div class="modal-content-card"></div>
+				</div>
+			</div>
+		</div>
+
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script src="./js/api-client.js"></script>
+		<script src="./js/crud-operations.js"></script>
+		<script src="./js/app.js"></script>
+		<script src="./js/quiz.js"></script>
+	</body>
 </html>
+
+<!-- Credit to https://gist.github.com/MikhaiTran/ for the awesome star background!  -->
