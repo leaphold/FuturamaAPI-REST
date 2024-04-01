@@ -59,6 +59,7 @@ async function printCharacters() {
     // Clear the main container
     mainContainer.innerHTML = "";
     //Display add character button
+    document.querySelector(".start-quiz-button").style.display = "none";
     document.querySelector(".add-episode-button").style.display = "none";
     document.querySelector(".add-character-button").style.display = "block";
 
@@ -293,6 +294,7 @@ async function printEpisodes() {
     // Clear the main container
     mainContainer.innerHTML = "";
     //display add episode button and hide add character button
+    document.querySelector(".start-quiz-button").style.display = "none";
     document.querySelector(".add-character-button").style.display = "none";
     document.querySelector(".add-episode-button").style.display = "block";
 
@@ -556,7 +558,6 @@ function showQuestionInModal(questions, index) {
 }
 
 function handleAnswerClick(isCorrect, index, questions) {
-    // Omvandla 'isCorrect' tillbaka från sträng till Boolean
     const correct = isCorrect === "true";
 
     if (correct) {
@@ -565,5 +566,4 @@ function handleAnswerClick(isCorrect, index, questions) {
         alert("Incorrect!");
     }
     showQuestionInModal(questions, index + 1); // show next question
-    //showQuestionInModal(JSON.parse(questions), index + 1);
 }
