@@ -462,3 +462,44 @@ window.onload = async function () {
 	await loadDatabase();
 	await printCharacters();
 };
+
+
+//--------------------Questions-------------------//
+
+// Function to print all questions
+async function printQuestions(){
+
+mainContainer.innerHTML = "";
+
+const questionsContainer = document.createElement("div"); 
+questionsContainer.className = "questions-container";
+questionsContainer.innerHTML = "<h2>Questions</h2>";
+
+mainContainer.appendChild(questionsContainer);
+
+let questions = await performDBOperation("questions", "readonly", "getAll");
+  
+console.log(questions);
+
+for (const question of questions) {
+    const container = document.getElementsByClassName("questions-container")[0];
+
+    const questionsElement = document.createElement("div");
+    questionsElement.className = "card";
+    questionsElement.innerHTML = `
+    	<p>Question: ${question.question}</p>
+  `;
+    container.appendChild(questionsElement);
+  }
+}
+
+// Function to get random sayings
+function getRandomQuestions(questions) {
+	let randomQuestions = [];
+	for (let i = 0; i < 5; i++) {
+		let randomIndex = Math.floor(Math.random() * question.length);
+		randomQuestions.push(questions[randomIndex]);
+		questions.splice(randomIndex, 1);
+	}
+	return randomQuestions;
+}
