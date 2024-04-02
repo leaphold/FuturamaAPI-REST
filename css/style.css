@@ -284,8 +284,11 @@ main {
 }
 
 .statistic-circle {
-	width: 15em;
-	height: 15em;
+	color: black;
+	font-size: 1.4em;
+	font-weight: bold;
+	width: 12em;
+	height: 12em;
 	border-radius: 50%;
 	display: flex;
 	align-items: center;

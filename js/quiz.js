@@ -13,6 +13,11 @@
 // ---------- STATISTICS PAGE (first page for quiz) ---------- //
 
 // Manage statistics (initialize, update, get)
+// ---------- COMMON FUNCTIONS/EVENT LISTNERS ---------- //
+
+// ---------- STATISTICS PAGE (first page for quiz) ---------- //
+
+// Manage statistics (initialize, update, get)
 function manageStatistics() {
 	// If there is no statistics saved in localStorage
 	if (!localStorage.getItem("statistics")) {
@@ -20,6 +25,9 @@ function manageStatistics() {
 			questionsAnswered: 0,
 			correctAnswers: 0,
 			incorrectAnswers: 0,
+			totalQuestionsAnswered: 0,
+			totalCorrectAnswers: 0,
+			totalIncorrecsAnswers: 0,
 		};
 		localStorage.setItem("statistics", JSON.stringify(initialStatistics));
 	}
@@ -36,7 +44,18 @@ function manageStatistics() {
 		localStorage.setItem("statistics", JSON.stringify(statistics));
 	};
 
-	// Get current sstatistics
+	this.updateTotalStatistics = function (correct) {
+		const statistics = JSON.parse(localStorage.getItem("statistics"));
+		statistics.totalQuestionsAnswered += 1;
+		if (correct) {
+			statistics.totalCorrectAnswers += 1;
+		} else {
+			statistics.totalIncorrecsAnswers += 1;
+		}
+		localStorage.setItem("statistics", JSON.stringify(statistics));
+	};
+
+	// Get current statistics
 	this.getStatistics = function () {
 		return JSON.parse(localStorage.getItem("statistics"));
 	};
@@ -51,6 +70,7 @@ function printStatistics() {
 	// Clear the main container
 	mainContainer.innerHTML = "";
 
+	//hide and show correct buttons
 	document.querySelector(".add-episode-button").style.display = "none";
 	document.querySelector(".add-character-button").style.display = "none";
 	document.querySelector(".start-quiz-button").style.display = "block";
@@ -71,17 +91,17 @@ function printStatistics() {
 	// Create circles for each statistic
 	const answeredCircle = document.createElement("div");
 	answeredCircle.className = "statistic-circle answered";
-	answeredCircle.innerText = `Answered: ${statistics.questionsAnswered}`;
+	answeredCircle.innerText = `Answered: ${statistics.totalQuestionsAnswered}`;
 	circlesContainer.appendChild(answeredCircle);
 
 	const correctCircle = document.createElement("div");
 	correctCircle.className = "statistic-circle correct";
-	correctCircle.innerText = `Correct: ${statistics.correctAnswers}`;
+	correctCircle.innerText = `Correct: ${statistics.totalCorrectAnswers}`;
 	circlesContainer.appendChild(correctCircle);
 
 	const incorrectCircle = document.createElement("div");
 	incorrectCircle.className = "statistic-circle incorrect";
-	incorrectCircle.innerText = `Incorrect: ${statistics.incorrectAnswers}`;
+	incorrectCircle.innerText = `Incorrect: ${statistics.totalIncorrecsAnswers}`;
 	circlesContainer.appendChild(incorrectCircle);
 }
 
@@ -92,24 +112,37 @@ function selectRandomQuestions(questions, count) {
 }
 
 // ---------- QUIZ MODAL PAGE ---------- //
+let correctAnswerCount = 0;
+let questions = []; // Declare questions as a global variable
 
 async function startQuiz() {
 	try {
-		let questions = await performDBOperation("questions", "readonly", "getAll");
-		if (questions.length === 0) {
-			await API.getQuestions();
-			questions = await performDBOperation("questions", "readonly", "getAll");
-		}
+		let allQuestions = await performDBOperation("questions", "readonly", "getAll");
+		questions = selectRandomQuestions(allQuestions, 10); // Select 10 random questions
 
-		const selectedQuestions = selectRandomQuestions(questions, 10);
+		let currentStatistics = JSON.parse(localStorage.getItem("statistics"));
 
-		showQuestionInModal(selectedQuestions, 0);
+		let statistics = {
+			questionsAnswered: 0,
+			correctAnswers: 0,
+			incorrectAnswers: 0,
+			totalQuestionsAnswered: currentStatistics.totalQuestionsAnswered,
+			totalCorrectAnswers: currentStatistics.totalCorrectAnswers,
+			totalIncorrecsAnswers: currentStatistics.totalIncorrecsAnswers,
+		};
+		localStorage.setItem("statistics", JSON.stringify(statistics));
+
+		showQuestionInModal(questions, 0);
 	} catch (error) {
 		console.error("Failed to start the quiz:", error);
 	}
 }
 
 function showQuestionInModal(questions, index) {
+	const modalContentCard = document.querySelector("#modal .modal-content-card");
+
+	console.log(questions);
+
 	if (index >= questions.length) {
 		alert("Quiz completed!");
 		closeTheModal();
@@ -117,29 +150,32 @@ function showQuestionInModal(questions, index) {
 	}
 
 	const question = questions[index];
-	const modalContentCard = document.querySelector("#modal .modal-content-card");
+
 	modalContentCard.innerHTML = `
         <h3>${question.question}</h3>
+        <p>Correct Answers: ${correctAnswerCount}</p>
         ${question.possibleAnswers
 			.map(
-				(answer) =>
-					`<button class="quiz-answer" onclick="handleAnswerClick('${answer === question.correctAnswer}', ${index}, ${JSON.stringify(
-						questions
-					).replace(/"/g, "&quot;")})">
-                    ${answer}
-                </button>`
+				(answer, i) =>
+					`<button class="quiz-answer" onclick="handleAnswerClick('${answer === question.correctAnswer}', ${index}, ${i})">
+                ${answer}
+                </button>
+            `
 			)
 			.join("")}
     `;
 }
 
-function handleAnswerClick(isCorrect, index, questions) {
+function handleAnswerClick(isCorrect, questionIndex) {
 	const correct = isCorrect === "true";
 
 	if (correct) {
-		alert("Correct!");
+		statisticsManager.updateStatistics(true);
+		statisticsManager.updateTotalStatistics(true);
 	} else {
-		alert("Incorrect!");
+		statisticsManager.updateStatistics(false);
+		statisticsManager.updateTotalStatistics(false);
 	}
-	showQuestionInModal(questions, index + 1); // show next question
+	showQuestionInModal(questions, questionIndex + 1); // show next question
+	printStatistics();
 }
