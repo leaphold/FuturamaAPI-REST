@@ -8,6 +8,16 @@ document.addEventListener("DOMContentLoaded", function () {
 	// Event listeners for navigation buttons
 	document.querySelector(".characters-button").addEventListener("click", printCharacters);
 	document.querySelector(".episodes-button").addEventListener("click", printEpisodes);
+	document.querySelector(".questions-button").addEventListener("click", printStatistics);
+	document.querySelector(".start-quiz-button").addEventListener("click", function () {
+		document.getElementById("modal").style.display = "block";
+
+		startQuiz();
+
+		// Hide edit and delete buttons in modal
+		let = editDeleteButtons = document.querySelectorAll(".edit-delete");
+		editDeleteButtons.forEach((button) => (button.style.display = "none"));
+	});
 	document.querySelector(".add-character-button").addEventListener("click", function () {
 		document.getElementById("modal").style.display = "block";
 
@@ -48,6 +58,10 @@ let editFunction = null;
 async function printCharacters() {
 	// Clear the main container
 	mainContainer.innerHTML = "";
+	//Display add character button
+	document.querySelector(".start-quiz-button").style.display = "none";
+	document.querySelector(".add-episode-button").style.display = "none";
+	document.querySelector(".add-character-button").style.display = "block";
 
 	// Create a new characters container
 	const charactersContainer = document.createElement("div");
@@ -179,7 +193,6 @@ async function addCharacterForm() {
 		try {
 			// Add character to database
 			await addCharacter(newCharacter);
-			console.log("Character added successfully IN ADDCHARFORM!");
 			form.reset();
 			await printCharacters(); // Update the character list after adding
 		} catch (error) {
@@ -240,7 +253,6 @@ async function editCharacterForm(id) {
 		};
 		try {
 			await updateCharacter(id, newCharacter);
-			console.log("Character edited successfully IN ADDCHARFORM!");
 			await printCharacter(id);
 			await printCharacters();
 		} catch (error) {
@@ -277,6 +289,10 @@ async function editCharacterForm(id) {
 async function printEpisodes() {
 	// Clear the main container
 	mainContainer.innerHTML = "";
+	//display add episode button and hide add character button
+	document.querySelector(".start-quiz-button").style.display = "none";
+	document.querySelector(".add-character-button").style.display = "none";
+	document.querySelector(".add-episode-button").style.display = "block";
 
 	// Create a new episodes container
 	const episodesContainer = document.createElement("div");
@@ -287,8 +303,6 @@ async function printEpisodes() {
 	mainContainer.appendChild(episodesContainer);
 
 	let episodes = await performDBOperation("episodes", "readonly", "getAll");
-
-	console.log(episodes);
 
 	const container = document.getElementsByClassName("episodes-container")[0];
 
@@ -367,7 +381,6 @@ async function addEpisodeForm() {
 		try {
 			// Add episode to database
 			await addEpisode(newEpisode);
-			console.log("Episode added successfully IN AddEpisodeForm!");
 			form.reset();
 			await printEpisodes(); // Update the character list after adding
 		} catch (error) {
@@ -425,7 +438,6 @@ async function editEpisodeForm(id) {
 		try {
 			// Update episode in database
 			await updateEpisode(id, newEpisode);
-			console.log("Episode updated successfully!");
 			await printEpisode(id);
 			await printEpisodes();
 		} catch (error) {
@@ -462,3 +474,29 @@ window.onload = async function () {
 	await loadDatabase();
 	await printCharacters();
 };
+
+//--------------------Questions-------------------//
+
+// Function to print all questions
+async function getQuestions() {
+	mainContainer.innerHTML = "";
+
+	const questionsContainer = document.createElement("div");
+	questionsContainer.className = "questions-container";
+	questionsContainer.innerHTML = "<h2>Questions</h2>";
+
+	mainContainer.appendChild(questionsContainer);
+
+	let questions = await performDBOperation("questions", "readonly", "getAll");
+
+	for (const question of questions) {
+		const container = document.getElementsByClassName("questions-container")[0];
+
+		const questionsElement = document.createElement("div");
+		questionsElement.className = "card";
+		questionsElement.innerHTML = `
+    	<p>Question: ${question.question}</p>
+  `;
+		container.appendChild(questionsElement);
+	}
+}

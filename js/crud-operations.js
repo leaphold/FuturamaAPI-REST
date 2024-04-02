@@ -165,3 +165,13 @@ async function updateEpisode(id, episode) {
 
 	return performDBOperation("episodes", "readwrite", "put", fullEpisode);
 }
+
+/********************************
+ * CRUD Operations for Questions *
+ ********************************/
+
+// async function getNextQuestionId() {
+//     const questions = await performDBOperation("questions", "readonly", "getAll");
+//     let maxId = questions.length > 0 ? Math.max(...questions.map((question) => question.id)) : 0;
+//     return maxId + 1;
+// }

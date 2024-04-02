@@ -4,6 +4,7 @@ const BASE_URL = "https://da-demo.github.io/api/futurama/";
 const API_URL = {
 	characters: `${BASE_URL}characters`,
 	episodes: `${BASE_URL}episodes`,
+	questions: `${BASE_URL}questions`,
 };
 
 // Setup IndexedDB
@@ -14,6 +15,7 @@ openRequest.onupgradeneeded = function (e) {
 	let db = e.target.result;
 	db.createObjectStore("characters", { keyPath: "id" });
 	db.createObjectStore("episodes", { keyPath: "id" });
+	db.createObjectStore("questions", { keyPath: "id" });
 };
 
 // Checks if the IndexedDB is empty, if its empty it gets all the data from the API
@@ -26,6 +28,7 @@ async function loadDatabase() {
 	return new Promise(async (resolve, reject) => {
 		const characters = await performDBOperation("characters", "readonly", "getAll");
 		const episodes = await performDBOperation("episodes", "readonly", "getAll");
+		const questions = await performDBOperation("questions", "readonly", "getAll");
 
 		if (characters.length === 0) {
 			await API.getCharacters();
@@ -35,6 +38,9 @@ async function loadDatabase() {
 			await API.getEpisodes();
 		}
 
+		if (questions.length === 0) {
+			await API.getQuestions();
+		}
 		resolve();
 	});
 }
@@ -80,7 +86,24 @@ const API = {
 		for (let episode of data) {
 			store.put(episode);
 		}
-		console.log(data);
+		return data;
+	},
+
+	async getQuestions() {
+		const response = await fetch(API_URL.questions);
+
+		if (!response.ok) {
+			throw new Error(`Could not get questions. \nStatus: ${response.status}`);
+		}
+		const data = await response.json();
+
+		// Save data to InexedDB
+		let transaction = db.transaction("questions", "readwrite");
+		let store = transaction.objectStore("questions");
+
+		for (let question of data) {
+			store.put(question);
+		}
 		return data;
 	},
 };
