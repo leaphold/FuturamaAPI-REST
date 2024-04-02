@@ -58,7 +58,7 @@ function printStatistics() {
 	// Create a new statistics container
 	const statisticsContainer = document.createElement("div");
 	statisticsContainer.className = "statistics-container";
-	statisticsContainer.innerHTML = "<h2>Statistics</h2>";
+	statisticsContainer.innerHTML = "<h2>Quiz statistics</h2>";
 	mainContainer.appendChild(statisticsContainer);
 
 	// Create a new circles container
