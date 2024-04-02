@@ -193,7 +193,6 @@ async function addCharacterForm() {
 		try {
 			// Add character to database
 			await addCharacter(newCharacter);
-			console.log("Character added successfully IN ADDCHARFORM!");
 			form.reset();
 			await printCharacters(); // Update the character list after adding
 		} catch (error) {
@@ -254,7 +253,6 @@ async function editCharacterForm(id) {
 		};
 		try {
 			await updateCharacter(id, newCharacter);
-			console.log("Character edited successfully IN ADDCHARFORM!");
 			await printCharacter(id);
 			await printCharacters();
 		} catch (error) {
@@ -305,8 +303,6 @@ async function printEpisodes() {
 	mainContainer.appendChild(episodesContainer);
 
 	let episodes = await performDBOperation("episodes", "readonly", "getAll");
-
-	console.log(episodes);
 
 	const container = document.getElementsByClassName("episodes-container")[0];
 
@@ -385,7 +381,6 @@ async function addEpisodeForm() {
 		try {
 			// Add episode to database
 			await addEpisode(newEpisode);
-			console.log("Episode added successfully IN AddEpisodeForm!");
 			form.reset();
 			await printEpisodes(); // Update the character list after adding
 		} catch (error) {
@@ -443,7 +438,6 @@ async function editEpisodeForm(id) {
 		try {
 			// Update episode in database
 			await updateEpisode(id, newEpisode);
-			console.log("Episode updated successfully!");
 			await printEpisode(id);
 			await printEpisodes();
 		} catch (error) {
@@ -494,8 +488,6 @@ async function getQuestions() {
 	mainContainer.appendChild(questionsContainer);
 
 	let questions = await performDBOperation("questions", "readonly", "getAll");
-
-	console.log(questions);
 
 	for (const question of questions) {
 		const container = document.getElementsByClassName("questions-container")[0];

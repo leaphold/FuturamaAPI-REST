@@ -119,9 +119,7 @@ main {
 	overflow: auto;
 }
 
-.episodes-container > h2,
-.statistics-container > h2,
-.characters-container > h2 {
+h2 {
 	font-size: 3em;
 	text-align: center;
 	text-decoration: underline;
@@ -162,7 +160,7 @@ main {
 .modal-content {
 	display: flex;
 	flex-direction: column;
-	align-items: start;
+	align-items: center;
 	background: linear-gradient(180deg, #8c1015, #e2161b);
 	color: black;
 	margin: 25% auto;
@@ -192,6 +190,7 @@ main {
 .modal-content-card {
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 }
 
 .modal-content-card > h3 {
@@ -249,6 +248,8 @@ main {
 	margin-bottom: 1em;
 }
 
+.closeButton,
+.resetButton,
 .submitButton {
 	background: linear-gradient(180deg, #8c1015, #e2161b);
 	border-color: #f1fe91;
@@ -262,6 +263,10 @@ main {
 	display: block;
 }
 
+.closeButton:hover,
+.closeButton:focus,
+.resetButton:hover,
+.resetButton:focus,
 .submitButton:hover,
 .submitButton:focus {
 	transform: scale(1.05);
@@ -290,6 +295,7 @@ main {
 	width: 12em;
 	height: 12em;
 	border-radius: 50%;
+	border: 0.5em solid black;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -298,13 +304,109 @@ main {
 }
 
 .answered {
-	background-color: yellow;
+	background: linear-gradient(0deg, #e1c52f, #f1fe91);
 }
 
 .correct {
-	background-color: green;
+	background: linear-gradient(0deg, #006400, #32cd32);
 }
 
 .incorrect {
-	background-color: red;
+	background: linear-gradient(0deg, #8c1015, #e2161b);
+}
+
+.resetButton {
+	margin-top: 5em;
+}
+
+.statistics-circles-quiz {
+	display: flex;
+	justify-content: space-around;
+	margin-bottom: 20px;
+}
+
+.circle {
+	width: 7em;
+	height: 7em;
+	border-radius: 50%;
+	border: 2px solid black;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: 1em;
+}
+
+.circle-text {
+	font-size: 1em;
+	font-weight: bold;
+}
+
+.circle-label {
+	font-size: 1em;
+	font-weight: bold;
+}
+
+.quiz-answer {
+	background: linear-gradient(180deg, #8c1015, #e2161b);
+	border-color: #f1fe91;
+	border-radius: 5px;
+	border-width: 3px;
+	padding: 0.5em;
+	color: #fff;
+	text-shadow: 1px 1px 2px black;
+	margin: 0.5em auto 0.5em auto;
+	width: 15em;
+	display: block;
+}
+
+h4 {
+	font-size: 2em;
+	text-align: center;
+	margin-bottom: 1em;
+}
+@media (max-width: 900px) {
+	.statistic-circle {
+		width: 9em;
+		height: 9em;
+	}
+}
+@media (max-width: 700px) {
+	.start-quiz-button,
+	.add-character-button,
+	.add-episode-button,
+	.main-container .statistics-container {
+		display: block;
+	}
+	nav {
+		flex-direction: column;
+	}
+	.add-character-button,
+	.characters-button,
+	.episodes-button,
+	.questions-button,
+	.start-quiz-button {
+		padding: 1.5em;
+	}
+
+	.circles-container {
+		align-items: center;
+		flex-direction: column;
+	}
+	.statistic-circle {
+		width: 12em;
+		height: 12em;
+	}
+	.start-quiz-button,
+	.questions-button,
+	.characters-button,
+	.episodes-button,
+	.add-character-button,
+	.add-episode-button {
+		width: 100%;
+		margin: 0.5em;
+	}
+	#futurama-logo {
+		width: 100%;
+	}
 }

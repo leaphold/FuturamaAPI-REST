@@ -1,20 +1,3 @@
-// TODO: Function to manage statistics
-// TODO: Print function for statistic (first page)
-// TODO: Get function for questions/ print questions (run select random questions)
-// TODO: Save to localstorage function
-// TODO: Random function to select 10 questions
-// TODO: Reset quiz button/function
-// TODO: Print questions to modal function
-// TODO: Counter for resaults
-// TODO: Counter for total statistics
-
-// ---------- COMMON FUNCTIONS/EVENT LISTNERS ---------- //
-
-// ---------- STATISTICS PAGE (first page for quiz) ---------- //
-
-// Manage statistics (initialize, update, get)
-// ---------- COMMON FUNCTIONS/EVENT LISTNERS ---------- //
-
 // ---------- STATISTICS PAGE (first page for quiz) ---------- //
 
 // Manage statistics (initialize, update, get)
@@ -60,7 +43,15 @@ function manageStatistics() {
 		return JSON.parse(localStorage.getItem("statistics"));
 	};
 
-	// TODO: Maybe add a reset function for statistics
+	// Reset total statistics
+	this.resetStatistics = function () {
+		const statistics = {
+			totalQuestionsAnswered: 0,
+			totalCorrectAnswers: 0,
+			totalIncorrecsAnswers: 0,
+		};
+		localStorage.setItem("statistics", JSON.stringify(statistics));
+	};
 }
 
 // Run an instancs of manageStatistics
@@ -78,7 +69,7 @@ function printStatistics() {
 	// Create a new statistics container
 	const statisticsContainer = document.createElement("div");
 	statisticsContainer.className = "statistics-container";
-	statisticsContainer.innerHTML = "<h2>Quiz statistics</h2>";
+	statisticsContainer.innerHTML = "<h2>Quiz total statistics</h2>";
 	mainContainer.appendChild(statisticsContainer);
 
 	// Create a new circles container
@@ -103,6 +94,19 @@ function printStatistics() {
 	incorrectCircle.className = "statistic-circle incorrect";
 	incorrectCircle.innerText = `Incorrect: ${statistics.totalIncorrecsAnswers}`;
 	circlesContainer.appendChild(incorrectCircle);
+
+	// Create a reset button
+	const resetButton = document.createElement("button");
+	resetButton.className = "resetButton";
+	resetButton.innerText = "Reset Statistics";
+	resetButton.addEventListener("click", function () {
+		// Reset the statistics
+		statisticsManager.resetStatistics();
+
+		// Reprint the statistics
+		printStatistics();
+	});
+	statisticsContainer.appendChild(resetButton);
 }
 
 // selecting 10 random questions
@@ -140,27 +144,49 @@ async function startQuiz() {
 
 function showQuestionInModal(questions, index) {
 	const modalContentCard = document.querySelector("#modal .modal-content-card");
-
-	console.log(questions);
+	let statistics = JSON.parse(localStorage.getItem("statistics"));
 
 	if (index >= questions.length) {
-		alert("Quiz completed!");
-		closeTheModal();
+		modalContentCard.innerHTML = `
+		<h2>Quiz completed!</h2>
+		<div class="circle correct">
+				<span class="circle-text">${statistics.correctAnswers}</span>
+				<span class="circle-label">Correct</span>
+			</div>
+			<div class="circle incorrect">
+				<span class="circle-text">${statistics.incorrectAnswers}</span>
+				<span class="circle-label">Incorrect</span>
+			</div>
+		<button class="closeButton" onclick="closeTheModal()">Close</button>
+		`;
 		return;
 	}
 
 	const question = questions[index];
 
 	modalContentCard.innerHTML = `
-        <h3>${question.question}</h3>
-        <p>Correct Answers: ${correctAnswerCount}</p>
+		<div class="statistics-circles-quiz">
+			<div class="circle answered">
+				<span class="circle-text">${questions.length - index}</span>
+				<span class="circle-label">Remaining</span>
+			</div>
+			<div class="circle correct">
+				<span class="circle-text">${statistics.correctAnswers}</span>
+				<span class="circle-label">Correct</span>
+			</div>
+			<div class="circle incorrect">
+				<span class="circle-text">${statistics.incorrectAnswers}</span>
+				<span class="circle-label">Incorrect</span>
+			</div>
+		</div>
+        <h4>${question.question}</h4>
         ${question.possibleAnswers
 			.map(
 				(answer, i) =>
 					`<button class="quiz-answer" onclick="handleAnswerClick('${answer === question.correctAnswer}', ${index}, ${i})">
-                ${answer}
+					${answer}
                 </button>
-            `
+			`
 			)
 			.join("")}
     `;
